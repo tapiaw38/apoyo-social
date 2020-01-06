@@ -1,32 +1,32 @@
 from tkinter import *
 from tkinter import messagebox
-from ventana_sub import ven_sub
-from lista_sub import listaSub
-from ventana_viv import ven_viv
-from lista_viv import listaViv
-from ventana_mod import ven_mod
-from lista_mod import listaMod
-from ventana_pas import ven_pas
-from lista_pas import listaPas
-from lista_tarj import listaTarj
-from ventana_farm import ven_farm
-from lista_farm import listaFarm
+from subsidio.ventana_sub import ven_sub
+from subsidio.lista_sub import listaSub
+from vivienda.ventana_viv import ven_viv
+from vivienda.lista_viv import listaViv
+from modulo.ventana_mod import ven_mod
+from modulo.lista_mod import listaMod
+from pasaje.ventana_pas import ven_pas
+from pasaje.lista_pas import listaPas
+from tarjeta.lista_tarj import listaTarj
+from farmacia.ventana_farm import ven_farm
+from farmacia.lista_farm import listaFarm
 
 #------------ configuracion de la raiz de la ventana---------------------------------
 ventana_menu = Tk()
 ventana_menu.title("Registro Social")
 #raiz.resizable(0, 0)
-ventana_menu.iconbitmap("final.ico")
+ventana_menu.iconbitmap("img/final.ico")
 ventana_menu.state("zoomed")#mazimizar ventana
 ventana_menu.config(bg="white")
 ventana_menu.config(cursor="hand2")
 
 #------------------------introducimos una imagen y titulo----------------------------
-miImagen = PhotoImage(file="muni.png")
+miImagen = PhotoImage(file="img/muni.png")
 label7 = Label(ventana_menu, image=miImagen, bg="white").place(x=30, y=540)
 label8=Label(ventana_menu, text="MUNICIPALIDAD DE TINOGASTA", bg="white", font=("Bodoni MT Condensed", 55)).place(x=170, y=570)
 label9=Label(ventana_menu, text="Sebastian Noblega Intendente", bg="white", font=("Monotype Corsiva", 12)).place(x=170, y=640)
-imageEscritorio=PhotoImage(file="escritorio.png")
+imageEscritorio=PhotoImage(file="img/escritorio.png")
 escritorio=Label(ventana_menu, image=imageEscritorio, bg="white").place(x=250, y=100)
 # ---------------------------------funciones-----------------------------------------
 def licencia():

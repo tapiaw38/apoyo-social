@@ -131,10 +131,10 @@ def ven_pas():
     fecha3 = Entry(ventana, width=5, textvariable=data3)
     fecha3.place(x=130, y=390)
     # --------------------------------------------
-    imagen1=PhotoImage(file="guardar.png")
+    imagen1=PhotoImage(file="img/guardar.png")
     botonguarda = Button(ventana, image=imagen1,command=guardaDatos)
     botonguarda.place(x=40, y=430)
-    imagen2=PhotoImage(file="borrar.png")
+    imagen2=PhotoImage(file="img/borrar.png")
     botonborrar = Button(ventana, image=imagen2, bg='white',command=borraD)
     botonborrar.place(x=140, y=430)
 

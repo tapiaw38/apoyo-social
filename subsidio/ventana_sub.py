@@ -29,14 +29,8 @@ def ven_sub():
         elif len(borra2.get())>8 or len(borra2.get())<8:
             messagebox.showerror("ERROR", "Debes ingresar un DNI sin puntos \nDebe tener 8 caracteres")
             ventana.deiconify()
-        elif not borra2.get().isdigit():
-            messagebox.showerror("ERROR", "Debes inresar un DNI correcto")
-            ventana.deiconify()
         elif borra3.get() == "":
             messagebox.showerror("ERROR", "Debes completar todos lo campos")
-            ventana.deiconify()
-        elif not borra3.get().isdigit():
-            messagebox.showerror("ERROR", "Debes inresar un monto correcto")
             ventana.deiconify()
         elif borra4.get() == "":
             messagebox.showerror("ERROR", "Debes completar todos lo campos")
@@ -44,20 +38,11 @@ def ven_sub():
         elif len(data1.get())>2 or len(data1.get())<2:
             messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
             ventana.deiconify()
-        elif not data1.get().isdigit():
-            messagebox.showerror("ERROR", "Dia incorrecto")
-            ventana.deiconify()
         elif len(data2.get())>2 or len(data2.get())<2:
             messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
             ventana.deiconify()
-        elif not data2.get().isdigit():
-            messagebox.showerror("ERROR", "Mes incorrecto")
-            ventana.deiconify()
         elif len(data3.get())>4 or len(data3.get())<4:
             messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
-            ventana.deiconify()
-        elif not data3.get().isdigit():
-            messagebox.showerror("ERROR", "Año incorrecto")
             ventana.deiconify()
         else:
             miCursor.execute("INSERT INTO subsidios VALUES(NULL, '" + borra1.get() +
@@ -140,10 +125,10 @@ def ven_sub():
     fecha3 = Entry(ventana, width=5, textvariable=data3)
     fecha3.place(x=130, y=340)
     # --------------------------------------------
-    imagen1=PhotoImage(file="guardar.png")
+    imagen1=PhotoImage(file="img/guardar.png")
     botonguarda = Button(ventana, image=imagen1,command=guardaDatos)
     botonguarda.place(x=40, y=430)
-    imagen2=PhotoImage(file="borrar.png")
+    imagen2=PhotoImage(file="img/borrar.png")
     botonborrar = Button(ventana, image=imagen2, bg='white',command=borraD)
     botonborrar.place(x=140, y=430)
 

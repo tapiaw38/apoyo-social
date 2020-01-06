@@ -98,7 +98,7 @@ def listaViv():
             etiqueta2 = Label(root, text="Alta de ayuda").place(x=10, y=120)
             Radiobutton(root, text="SI", variable=borra1, value="SI").place(x=10, y=140)
             Radiobutton(root, text="NO", variable=borra1, value="NO").place(x=10, y=160)
-            imagenActaliza = PhotoImage(file="actualiza.png")
+            imagenActaliza = PhotoImage(file="img/actualiza.png")
             botonActualiza = Button(root,image=imagenActaliza, command=actualiza)
             botonActualiza.place(x=0, y=0)
             root.mainloop()
@@ -169,7 +169,7 @@ def listaViv():
             entrada6 = Entry(root, justify="center",textvariable=borra4,state=DISABLED)
             entrada6.place(x=20, y=200, width=200)
             # ---------------------------------------------
-            imagenActaliza = PhotoImage(file="actualiza.png")
+            imagenActaliza = PhotoImage(file="img/actualiza.png")
             botonActualiza = Button(root,image=imagenActaliza, command=actualiza)
             botonActualiza.place(x=0, y=0)
 
@@ -217,7 +217,7 @@ def listaViv():
     fecha6 = Entry(ventana, width=5, textvariable=f6)
     fecha6.place(x=110, y=60)
         #----
-    imagenM = PhotoImage(file="buscar.png")
+    imagenM = PhotoImage(file="img/buscar.png")
     botonMaterial = Button(ventana,image=imagenM, command=calcularMaterial)
     botonMaterial.place(x=160, y=40)
 
@@ -226,17 +226,17 @@ def listaViv():
     Ebuscar=Entry(ventana,width=20,justify="center",textvariable=consulta)
     Ebuscar.place(x=590,y=20)
     Ebuscar.focus()
-    imagenBuscar=PhotoImage(file="buscar.png")
+    imagenBuscar=PhotoImage(file="img/buscar.png")
     Botonbuscar=Button(ventana,image=imagenBuscar,command=buscaDatos)
     Botonbuscar.place(x=720,y=15)
     #------------------------------------------------------------------
-    imagenActaliza=PhotoImage(file="actualiza.png")
+    imagenActaliza=PhotoImage(file="img/actualiza.png")
     botonActualiza=Button(ventana,image=imagenActaliza,command=actualizarLista)
     botonActualiza.place(x=760,y=15)
-    imagenLapiz=PhotoImage(file="editar.gif")
+    imagenLapiz=PhotoImage(file="img/editar.gif")
     botonEditar=Button(ventana,image=imagenLapiz,command=circuito)
     botonEditar.place(x=800,y=80)
-    imagenUser=PhotoImage(file="usuario.png")
+    imagenUser=PhotoImage(file="img/usuario.png")
     botonUser=Button(ventana,image=imagenUser,bg="white",command=usuario)
     botonUser.place(x=840,y=80)
     lista=ttk.Treeview(ventana,columns=("A","B","C","D"),height=15)

@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import sqlite3
 
-def listaSub():
+def listaFarm():
     #---------------------------------------------------------------------------------------
     ventana = Toplevel()
     #ventana.iconbitmap("final.ico")
@@ -21,22 +21,21 @@ def listaSub():
         if x !="()":
             for i in x:
                 lista.delete(i)
-        miConexion = sqlite3.connect("subsidios.db")
+        miConexion = sqlite3.connect("farmacia.db")
         miCursor = miConexion.cursor()
-        miCursor.execute("SELECT ID, nombre_apellido, dni, monto,motivo, strftime('%d-%m-%Y',fecha_solicitud),institucion,asistencia,estado FROM subsidios")
+        miCursor.execute("SELECT ID, nombre_apellido, dni, monto, strftime('%d-%m-%Y',fecha_solicitud) FROM farmacia")
         elUsuario = miCursor.fetchall()
-        for subsidios in elUsuario:
-            lista.insert("", 0, text=subsidios[0],
+        for farmacia in elUsuario:
+            lista.insert("", 0, text=farmacia[0],
                          values=(
-                         str(subsidios[1]), str(subsidios[2]), str(subsidios[3]), str(subsidios[5]), str(subsidios[8]),
-                         imagenLapiz))
+                             str(farmacia[1]), str(farmacia[2]), str(farmacia[3]), str(farmacia[4])))
 
     #fucion rellenar datos
     def buscaDatos():
         try:
-            miConexion = sqlite3.connect("subsidios.db")
+            miConexion = sqlite3.connect("farmacia.db")
             miCursor = miConexion.cursor()
-            miCursor.execute("SELECT ID, nombre_apellido, dni, monto,motivo, strftime('%d-%m-%Y',fecha_solicitud),institucion,asistencia,estado FROM subsidios WHERE dni=" + consulta.get())
+            miCursor.execute("SELECT ID, nombre_apellido, dni, monto, strftime('%d-%m-%Y',fecha_solicitud) FROM farmacia WHERE dni=" + consulta.get())
             if len(consulta.get())>8 or len(consulta.get())<8:
                 messagebox.showwarning("ERROR", "Ingresaste una busqueda invalida \nDebes ingresar el DNI sin puntos")
                 ventana.deiconify()
@@ -45,78 +44,16 @@ def listaSub():
             if x !="()":
                 for i in x:
                     lista.delete(i)
-            for subsidios in elUsuario:
-                lista.insert("",0,text=subsidios[0],values=(str(subsidios[1]),str(subsidios[2]),str(subsidios[3]),str(subsidios[5]),str(subsidios[8])))
+            for farmacia in elUsuario:
+                lista.insert("", 0, text=farmacia[0], values=(str(farmacia[1]), str(farmacia[2]), str(farmacia[3]), str(farmacia[5]), str(farmacia[8])))
         except:
             messagebox.showwarning("ERROR", "Ingresaste una busqueda invalida")
             ventana.deiconify()
-    def circuito():
-        idSelecionado=lista.item(lista.selection())['text']
-        if idSelecionado=="":
-            messagebox.showwarning("Atencion", "Debes seleccionar un registro para editarlo")
-            ventana.deiconify()
-        else:
-            root=Toplevel()
-            root.geometry("230x275+1100+220")
-            borra1=StringVar()
-            borra2=StringVar()
-            borra3=StringVar()
-            borra2.set(None)
-            borra3.set(None)
-            #llamar datos
-            miConexion = sqlite3.connect("subsidios.db")
-            miCursor = miConexion.cursor()
-            miCursor.execute("SELECT * FROM subsidios WHERE ID=" + str(idSelecionado))
-            elUsuario = miCursor.fetchall()
-            for subsidios in elUsuario:
-                borra1.set(subsidios[6])
-                borra2.set(subsidios[7])
-                borra3.set(subsidios[8])
-            miConexion.commit()
-            #actualizar datos
-            def actualiza():
-                miConexion = sqlite3.connect("subsidios.db")
-                miCursor = miConexion.cursor()
-                miCursor.execute("UPDATE subsidios SET institucion='" + borra1.get() +
-                             "', asistencia='" + borra2.get() +
-                             "', estado='" + borra3.get() +
-                             "' WHERE ID=" + str(idSelecionado))
-                miConexion.commit()
-                root.destroy()
-                opcion = messagebox.askquestion("Felicidades!",
-                                            " Registro Modificado\n¿Deseas volver a editar?")
-                if opcion == "yes":
-                    root.destroy()
-                    ventana.deiconify()
-                    circuito()
-                else:
-                    root.destroy()
-                    ventana.deiconify()
-            etiqueta1=Label(root,text="Intitucion")
-            etiqueta1.place(x=10,y=40)
-            entrada1 = Entry(root, justify="center", textvariable=borra1)
-            entrada1.place(x=10, y=60)
-            entrada1.focus()
-            entrada1.icursor(END)
-            entrada1.select_range(0,END)
-            etiqueta2 = Label(root, text="Aistencia").place(x=10, y=90)
-            Radiobutton(root, text="SI", variable= borra2, value="SI").place(x=10, y=110)
-            Radiobutton(root, text="NO", variable=borra2, value="NO").place(x=10, y=130)
-            etiqueta3 = Label(root, text="Estado del Subsidio").place(x=10, y=160)
-            Radiobutton(root, text="Desarrollo Social", variable=borra3, value="Desarrollo Social").place(x=10, y=180)
-            Radiobutton(root, text="Intendencia", variable=borra3, value="Intendencia").place(x=10, y=200)
-            Radiobutton(root, text="Secretaria de Gobierno", variable=borra3, value="Secretaria de Gobierno").place(x=10, y=220)
-            Radiobutton(root, text="Secretaia de Hacienda", variable=borra3, value="Secretaria de Hacienda").place(x=10, y=240)
-            imagenActaliza = PhotoImage(file="actualiza.png")
-            botonActualiza = Button(root,image=imagenActaliza, command=actualiza)
-            botonActualiza.place(x=0, y=0)
-            root.mainloop()
-
 
     def usuario():
         idSelecionado=lista.item(lista.selection())['text']
         if idSelecionado=="":
-            messagebox.showwarning("Atencion", "Debes seleccionar un subsidio para editarlo")
+            messagebox.showwarning("Atencion", "Debes seleccionar un registro para editarlo")
             ventana.deiconify()
         else:
             root=Toplevel()
@@ -125,33 +62,27 @@ def listaSub():
             borra2=StringVar()
             borra3=StringVar()
             borra4=StringVar()
-            borra5=StringVar()
 
-            miConexion = sqlite3.connect("subsidios.db")
+            miConexion = sqlite3.connect("farmacia.db")
             miCursor = miConexion.cursor()
-            miCursor.execute("SELECT ID, nombre_apellido, dni, monto,motivo, strftime('%d-%m-%Y',fecha_solicitud),institucion,asistencia,estado  FROM subsidios WHERE ID=" + str(idSelecionado))
+            miCursor.execute("SELECT ID, nombre_apellido, dni, monto, strftime('%d-%m-%Y',fecha_solicitud) FROM farmacia WHERE ID=" + str(idSelecionado))
             elUsuario = miCursor.fetchall()
             for subsidios in elUsuario:
                 borra1.set(subsidios[1])
                 borra2.set(subsidios[2])
                 borra3.set(subsidios[3])
                 borra4.set(subsidios[4])
-                borra5.set(subsidios[5])
             miConexion.commit()
-            etiqueta = Label(root, text="Nombre y Apellido")
-            etiqueta.place(x=20, y=30, width=200)
-            entrada = Entry(root, justify="center",textvariable=borra1)
-            entrada.place(x=20, y=50, width=200)
-            entrada.focus()
+
 
             # actualizar datos
             def actualiza():
-                miConexion = sqlite3.connect("subsidios.db")
+                miConexion = sqlite3.connect("farmacia.db")
                 miCursor = miConexion.cursor()
-                miCursor.execute("UPDATE subsidios SET nombre_apellido='" + borra1.get() +
+                miCursor.execute("UPDATE farmacia SET nombre_apellido='" + borra1.get() +
                                  "', dni='" + borra2.get() +
                                  "', monto='" + borra3.get() +
-                                 "', motivo='" + borra4.get() +
+                                 "', fecha_solicitud ='" + borra4.get() +
                                  "' WHERE ID=" + str(idSelecionado))
                 miConexion.commit()
                 root.destroy()
@@ -166,6 +97,12 @@ def listaSub():
                     root.destroy()
                     ventana.deiconify()
             # ------------------------------------------
+            etiqueta = Label(root, text="Nombre y Apellido")
+            etiqueta.place(x=20, y=30, width=200)
+            entrada = Entry(root, justify="center",textvariable=borra1)
+            entrada.place(x=20, y=50, width=200)
+            entrada.focus()
+            # --------------------------------------------
             etiqueta2 = Label(root, text="D.N.I. (sin puntos)")
             etiqueta2.place(x=20, y=80, width=200)
             entrada2 = Entry(root, justify="center",textvariable=borra2)
@@ -176,19 +113,15 @@ def listaSub():
             entrada4 = Entry(root, justify="center",textvariable=borra3)
             entrada4.place(x=20, y=150, width=200)
             # --------------------------------------------
-            etiqueta5 = Label(root, text="Motivo")
-            etiqueta5.place(x=20, y=180, width=200)
-            entrada5 = Entry(root, justify="center",textvariable=borra4)
-            entrada5.place(x=20, y=200, width=200)
-            # --------------------------------------------
             etiqueta6 = Label(root, text="Fecha")
             etiqueta6.place(x=20, y=230,width=200)
-            entrada6 = Entry(root, justify="center",textvariable=borra5,state=DISABLED)
+            entrada6 = Entry(root, justify="center",textvariable=borra4,state=DISABLED)
             entrada6.place(x=20, y=250, width=200)
             # ---------------------------------------------
-            imagenActaliza = PhotoImage(file="actualiza.png")
+            imagenActaliza = PhotoImage(file="img/actualiza.png")
             botonActualiza = Button(root,image=imagenActaliza, command=actualiza)
             botonActualiza.place(x=0, y=0)
+            #----------------------------------------------
 
             root.mainloop()
     #------------------------------------------------------------------------------
@@ -204,14 +137,14 @@ def listaSub():
         data5 =  StringVar()
         data6 = StringVar()
         data6.set(2019)
-        miConexion = sqlite3.connect("subsidios.db")
+        miConexion = sqlite3.connect("farmacia.db")
         miCursor = miConexion.cursor()
-        miCursor.execute("SELECT * FROM subsidios ORDER BY fecha_solicitud ASC")
+        miCursor.execute("SELECT * FROM farmacia ORDER BY fecha_solicitud ASC")
 
         def contardatos():
-            miConexion = sqlite3.connect("subsidios.db")
+            miConexion = sqlite3.connect("farmacia.db")
             miCursor = miConexion.cursor()
-            miCursor.execute("SELECT * FROM subsidios WHERE fecha_solicitud BETWEEN "+"'"+data3.get()+"-"+
+            miCursor.execute("SELECT * FROM farmacia WHERE fecha_solicitud BETWEEN "+"'"+data3.get()+"-"+
                              data2.get()+"-"+
                              data1.get()+
                              "'"+
@@ -224,8 +157,8 @@ def listaSub():
 
             elUsuario = miCursor.fetchall()
             suma=0
-            for subsidios in elUsuario :
-                suma+=int(subsidios[3])
+            for farmacia in elUsuario :
+                suma+=int(farmacia[3])
                 suma1.config(text="{}".format("Los gastos son de $"+str(suma)))
 
             miConexion.commit()
@@ -252,7 +185,7 @@ def listaSub():
         fecha6 = Entry(root, width=5, textvariable=data6)
         fecha6.place(x=110, y=60)
         #----
-        imagenBuscarf = PhotoImage(file="buscar.png")
+        imagenBuscarf = PhotoImage(file="img/buscar.png")
         botoncontar = Button(root,image=imagenBuscar, command=contardatos)
         botoncontar.place(x=160, y=40)
 
@@ -262,24 +195,23 @@ def listaSub():
     Ebuscar=Entry(ventana,width=20,justify="center",textvariable=consulta)
     Ebuscar.place(x=210,y=20)
     Ebuscar.focus()
-    imagenBuscar=PhotoImage(file="buscar.png")
+    imagenBuscar=PhotoImage(file="img/buscar.png")
     Botonbuscar=Button(ventana,image=imagenBuscar,command=buscaDatos)
     Botonbuscar.place(x=340,y=15)
     #------------------------------------------------------------------
-    calculador=PhotoImage(file="calculadora.png")
+    calculador=PhotoImage(file="img/calculadora.png")
     botonCalc=Button(ventana,image=calculador,bg="white",command=vergastos)
     botonCalc.place(x=420,y=15)
     #------------------------------------------------------------------
-    imagenActaliza=PhotoImage(file="actualiza.png")
+    imagenActaliza=PhotoImage(file="img/actualiza.png")
     botonActualiza=Button(ventana,image=imagenActaliza,command=actualizarLista)
     botonActualiza.place(x=380,y=15)
-    imagenLapiz=PhotoImage(file="editar.gif")
-    botonEditar=Button(ventana,image=imagenLapiz,command=circuito)
-    botonEditar.place(x=800,y=80)
-    imagenUser=PhotoImage(file="usuario.png")
+    #------------------------------------------------------------------
+    imagenUser=PhotoImage(file="img/usuario.png")
     botonUser=Button(ventana,image=imagenUser,bg="white",command=usuario)
-    botonUser.place(x=840,y=80)
-    lista=ttk.Treeview(ventana,columns=("A","B","C","D","E"),height=15)
+    botonUser.place(x=670,y=80)
+    #------------------------------------------------------------------
+    lista=ttk.Treeview(ventana,columns=("A","B","C","D"),height=15)
     lista.place(x=10,y=80)
     lista.heading("#0",text="#")
     lista.column("#0",minwidth=0,width=50)
@@ -287,19 +219,17 @@ def listaSub():
     lista.heading("B",text="DNI")
     lista.column("B",minwidth=0,width=130)
     lista.heading("C",text="Monto en $")
-    lista.column("C",minwidth=0,width=100)
+    lista.column("C",minwidth=0,width=130)
     lista.heading("D",text="Fecha")
-    lista.column("D",minwidth=0,width=100)
-    lista.heading("E",text="Estado")
-    lista.column("E",minwidth=80)
+    lista.column("D",minwidth=0,width=130)
 
-    miConexion = sqlite3.connect("subsidios.db")
+    miConexion = sqlite3.connect("farmacia.db")
     miCursor = miConexion.cursor()
-    miCursor.execute("SELECT ID, nombre_apellido, dni, monto,motivo, strftime('%d-%m-%Y',fecha_solicitud),institucion,asistencia,estado FROM subsidios")
+    miCursor.execute("SELECT ID, nombre_apellido, dni, monto, strftime('%d-%m-%Y',fecha_solicitud) FROM farmacia")
     elUsuario = miCursor.fetchall()
-    for subsidios in elUsuario:
-        lista.insert("", 0, text=subsidios[0],
-                     values=(str(subsidios[1]), str(subsidios[2]), str(subsidios[3]), str(subsidios[5]), str(subsidios[8]),imagenLapiz))
+    for farmacia in elUsuario:
+        lista.insert("", 0, text=farmacia[0],
+                     values=(str(farmacia[1]), str(farmacia[2]), str(farmacia[3]), str(farmacia[4])))
 
 
     #lista.insert("","0","#",text="#")

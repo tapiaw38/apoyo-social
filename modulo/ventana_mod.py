@@ -2,21 +2,23 @@ from tkinter import *
 from tkinter import messagebox
 import sqlite3
 
-def ven_farm():
+def ven_mod():
     ventana=Toplevel()
-    ventana.geometry("250x450+50+70")
+    ventana.geometry("250x500+50+70")
     ventana.config(bg="white")
     ventana.resizable(0, 0)
     #variables
     borra1=StringVar()
     borra2=StringVar()
     borra3=StringVar()
+    borra4=StringVar()
+    borra5=StringVar()
     data1 = StringVar()
     data2 = StringVar()
     data3 = StringVar()
     #funcion actualiza
     def guardaDatos():
-        miConexion = sqlite3.connect("farmacia.db")
+        miConexion = sqlite3.connect("modulos.db")
         miCursor = miConexion.cursor()
         if borra1.get() == "":
             messagebox.showerror("ERROR", "Debes completar todos lo campos")
@@ -30,27 +32,25 @@ def ven_farm():
         elif borra3.get() == "":
             messagebox.showerror("ERROR", "Debes completar todos lo campos")
             ventana.deiconify()
-        elif len(data1.get()) > 2 or len(data1.get()) < 2:
-            messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
+        elif borra4.get() == "":
+            messagebox.showerror("ERROR", "Debes completar todos lo campos")
             ventana.deiconify()
-        elif len(data2.get()) > 2 or len(data2.get()) < 2:
-            messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
-            ventana.deiconify()
-        elif len(data3.get()) > 4 or len(data3.get()) < 4:
-            messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
+        elif borra5.get() == "":
+            messagebox.showerror("ERROR", "Debes completar todos lo campos")
             ventana.deiconify()
         else:
-            miCursor.execute("INSERT INTO farmacia VALUES(NULL, '" + borra1.get() +
+            miCursor.execute("INSERT INTO modulos VALUES(NULL, '" + borra1.get() +
                              "','" + borra2.get() +
                              "','" + borra3.get() +
+                             "','" + borra4.get() +
+                             "','" + borra5.get() +
                              "','" + data3.get() + "-" + data2.get() + "-" + data1.get() +
-
                              "')")
             miConexion.commit()
             opcion = messagebox.askquestion("Felicidades!", " Registro Guardado\n¿Deseas ingresar uno nuevo?")
             if opcion == "yes":
                 ventana.destroy()
-                ven_farm()
+                ven_mod()
             else:
                 ventana.destroy()
     # ------------------------------------------
@@ -59,6 +59,8 @@ def ven_farm():
         borra1.set("")
         borra2.set("")
         borra3.set("")
+        borra4.set("")
+        borra5.set("")
         data1.set("")
         data2.set("")
         data3.set("")
@@ -74,9 +76,9 @@ def ven_farm():
     idLabel.place(x=90, y=70, width=50)
     #-----------------------------------------
     #leer ID
-    miConexion = sqlite3.connect("pasajes.db")
+    miConexion = sqlite3.connect("modulos.db")
     miCursor = miConexion.cursor()
-    miCursor.execute("SELECT * FROM pasajes")
+    miCursor.execute("SELECT * FROM modulos")
     elUsuario = miCursor.fetchall()
     for subsidios in elUsuario:
         idLabel.config(text="{}".format(str(subsidios[0] + 1)))
@@ -93,28 +95,41 @@ def ven_farm():
     entrada2 = Entry(ventana, justify="center",textvariable=borra2)
     entrada2.place(x=20, y=180, width=200)
     # -------------------------------------------
-    etiqueta3 = Label(ventana, text="Monto (sin puntos)")
+    etiqueta3 = Label(ventana, text="Cantidad de modulos")
     etiqueta3.place(x=20, y=210, width=200)
     entrada3 = Entry(ventana, justify="center",textvariable=borra3)
     entrada3.place(x=20, y=230, width=200)
     # --------------------------------------------
-    etiqueta6 = Label(ventana, text="Fecha de solicitud (dd/mm/aaaa)")
+    etiqueta6 = Label(ventana, text="Localidad")
     etiqueta6.place(x=20, y=260, width=200)
-    fecha1 = Entry(ventana, width=3, textvariable=data1)
-    fecha1.place(x=70, y=290)
-    barra1 = Label(ventana, text="-").place(x=90, y=290)
-    fecha2 = Entry(ventana, width=3, textvariable=data2)
-    fecha2.place(x=100, y=290)
-    barra2 = Label(ventana, text="-").place(x=120, y=290)
-    fecha3 = Entry(ventana, width=5, textvariable=data3)
-    fecha3.place(x=130, y=290)
+    combo = Spinbox(ventana, justify="center",textvariable=borra4 ,values=(
+        "Tinogasta", "Anillaco", "El Puesto", "Villa San Roque", "Santa Rosa", "Costa de Reyes", "Villa Lujan",
+        "La Puntilla",
+        "Copacabana", "Banda de Lucero", "El Salado", "El Pueblito"))
+    combo.place(x=20, y=280, width=200)
     # --------------------------------------------
-    imagen1=PhotoImage(file="guardar.png")
+    etiqueta5 = Label(ventana, text="Dirección")
+    etiqueta5.place(x=20, y=310, width=200)
+    entrada5 = Entry(ventana, justify="center",textvariable=borra5)
+    entrada5.place(x=20, y=330, width=200)
+    # --------------------------------------------
+    etiqueta6 = Label(ventana, text="Fecha de entrega (dd/mm/aaaa)")
+    etiqueta6.place(x=20, y=360, width=200)
+    fecha1 = Entry(ventana, width=3, textvariable=data1)
+    fecha1.place(x=70, y=390)
+    barra1 = Label(ventana, text="-").place(x=90, y=390)
+    fecha2 = Entry(ventana, width=3, textvariable=data2)
+    fecha2.place(x=100, y=390)
+    barra2 = Label(ventana, text="-").place(x=120, y=390)
+    fecha3 = Entry(ventana, width=5, textvariable=data3)
+    fecha3.place(x=130, y=390)
+    # --------------------------------------------
+    imagen1=PhotoImage(file="img/guardar.png")
     botonguarda = Button(ventana, image=imagen1,command=guardaDatos)
-    botonguarda.place(x=40, y=330)
-    imagen2=PhotoImage(file="borrar.png")
+    botonguarda.place(x=40, y=430)
+    imagen2=PhotoImage(file="img/borrar.png")
     botonborrar = Button(ventana, image=imagen2, bg='white',command=borraD)
-    botonborrar.place(x=140, y=330)
+    botonborrar.place(x=140, y=430)
 
 
     ventana.mainloop()

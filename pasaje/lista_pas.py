@@ -105,7 +105,7 @@ def listaPas():
             entrada4 = Entry(root, justify="center",textvariable=borra3)
             entrada4.place(x=10, y=150, width=200)
             # ---------------------------------------------
-            imagenActaliza = PhotoImage(file="actualiza.png")
+            imagenActaliza = PhotoImage(file="../img/actualiza.png")
             botonActualiza = Button(root,image=imagenActaliza, command=actualiza)
             botonActualiza.place(x=0, y=0)
             root.mainloop()
@@ -162,7 +162,7 @@ def listaPas():
             entrada2.place(x=20, y=100, width=200)
             # -------------------------------------------
 
-            imagenActaliza = PhotoImage(file="actualiza.png")
+            imagenActaliza = PhotoImage(file="img/actualiza.png")
             botonActualiza = Button(root,image=imagenActaliza, command=actualiza)
             botonActualiza.place(x=0, y=0)
 
@@ -187,7 +187,7 @@ def listaPas():
 
         #----
         etiqueta1=Label(root,text="Calcular gastos en pasajes").place(x=0,y=10)
-        imagenBuscarf = PhotoImage(file="buscar.png")
+        imagenBuscarf = PhotoImage(file="img/buscar.png")
         botoncontar = Button(root,image=imagenBuscar, command=contardatos)
         botoncontar.place(x=160, y=3)
         suma1 = Label(root, text="0", bg="white", font=25)
@@ -199,21 +199,21 @@ def listaPas():
     Ebuscar=Entry(ventana,width=20,justify="center",textvariable=consulta)
     Ebuscar.place(x=210,y=20)
     Ebuscar.focus()
-    imagenBuscar=PhotoImage(file="buscar.png")
+    imagenBuscar=PhotoImage(file="img/buscar.png")
     Botonbuscar=Button(ventana,image=imagenBuscar,command=buscaDatos)
     Botonbuscar.place(x=340,y=15)
     #------------------------------------------------------------------
-    calculador=PhotoImage(file="calculadora.png")
+    calculador=PhotoImage(file="img/calculadora.png")
     botonCalc=Button(ventana,image=calculador,bg="white",command=vergastos)
     botonCalc.place(x=420,y=15)
     #------------------------------------------------------------------
-    imagenActaliza=PhotoImage(file="actualiza.png")
+    imagenActaliza=PhotoImage(file="img/actualiza.png")
     botonActualiza=Button(ventana,image=imagenActaliza,command=actualizarLista)
     botonActualiza.place(x=380,y=15)
-    imagenLapiz=PhotoImage(file="editar.gif")
+    imagenLapiz=PhotoImage(file="img/editar.gif")
     botonEditar=Button(ventana,image=imagenLapiz,command=circuito)
     botonEditar.place(x=800,y=80)
-    imagenUser=PhotoImage(file="usuario.png")
+    imagenUser=PhotoImage(file="img/usuario.png")
     botonUser=Button(ventana,image=imagenUser,bg="white",command=usuario)
     botonUser.place(x=840,y=80)
     lista=ttk.Treeview(ventana,columns=("A","B","C","D","E"),height=15)

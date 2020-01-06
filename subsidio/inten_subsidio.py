@@ -43,7 +43,7 @@ def subsidio():
     def vergastos():
         miConexion = sqlite3.connect("subsidios.db")
         miCursor = miConexion.cursor()
-        miCursor.execute("SELECT * FROM subsidios")
+        miCursor.execute("SELECT * FROM subsidio")
         elUsuario = miCursor.fetchall()
         suma=0
         for subsidios in elUsuario :
@@ -59,7 +59,7 @@ def subsidio():
             lista.config(state="disable")
             miConexion = sqlite3.connect("subsidios.db")
             miCursor = miConexion.cursor()
-            miCursor.execute("SELECT * FROM subsidios WHERE dni=" + borra10.get())
+            miCursor.execute("SELECT * FROM subsidio WHERE dni=" + borra10.get())
             elUsuario = miCursor.fetchall()
             for subsidios in elUsuario:
                 lista.config(state="normal")
@@ -76,7 +76,7 @@ def subsidio():
     def verid():
         miConexion = sqlite3.connect("subsidios.db")
         miCursor = miConexion.cursor()
-        miCursor.execute("SELECT * FROM subsidios")
+        miCursor.execute("SELECT * FROM subsidio")
         elUsuario = miCursor.fetchall()
         for subsidios in elUsuario:
             identrada.config(text="{}".format(str(subsidios[0])+"  Subsidios"))
@@ -102,12 +102,12 @@ def subsidio():
     lista.config(yscrollcommand=scrollvert.set, state="disable")
 
     #-----------------------SUMA DE MONTOS DE SUBSIDIOS---------------------------------
-    gastos=Label(ventana,text="Gastos Anuales en subsidios",font=20).place(x=390,y=400)
+    gastos=Label(ventana,text="Gastos Anuales en subsidio",font=20).place(x=390,y=400)
     gastosentrada = Label(ventana,text="",font=("Arial",15),justify="center",fg="red",bg="white")
     gastosentrada.place(x=450, y=430)
     gastasB=Button(ventana,text="CALCULAR",bg="red",command=vergastos,fg="white",font="Arial").place(x=450,y=470)
     #--------------------------CANTIDAD DE SUBSIDIOS-------------------------------------
-    id=Label(ventana,text="Cantidad de subsidios entregados",font=20).place(x=90,y=400)
+    id=Label(ventana,text="Cantidad de subsidio entregados",font=20).place(x=90,y=400)
     identrada = Label(ventana,text="",font=("Arial",15),justify="center",fg="red",bg="white")
     identrada.place(x=150, y=430)
     idB=Button(ventana,text="CALCULAR",bg="red",fg="white",font="Arial",command=verid).place(x=150,y=470)
