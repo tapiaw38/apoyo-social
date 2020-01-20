@@ -29,8 +29,14 @@ def ven_sub():
         elif len(borra2.get())>8 or len(borra2.get())<8:
             messagebox.showerror("ERROR", "Debes ingresar un DNI sin puntos \nDebe tener 8 caracteres")
             ventana.deiconify()
+        elif not borra2.get().isdigit():
+            messagebox.showerror("ERROR", "Ingresaste un DNI invalido")
+            ventana.deiconify()
         elif borra3.get() == "":
             messagebox.showerror("ERROR", "Debes completar todos lo campos")
+            ventana.deiconify()
+        elif not borra3.get().isdigit():
+            messagebox.showerror("ERROR", "Ingresaste un monto invalido")
             ventana.deiconify()
         elif borra4.get() == "":
             messagebox.showerror("ERROR", "Debes completar todos lo campos")
@@ -38,11 +44,20 @@ def ven_sub():
         elif len(data1.get())>2 or len(data1.get())<2:
             messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
             ventana.deiconify()
+        elif not data1.get().isdigit():
+            messagebox.showerror("ERROR", "El dia es incorrecto")
+            ventana.deiconify()
         elif len(data2.get())>2 or len(data2.get())<2:
             messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
             ventana.deiconify()
+        elif not data2.get().isdigit():
+            messagebox.showerror("ERROR", "El mes es incorrecto")
+            ventana.deiconify()
         elif len(data3.get())>4 or len(data3.get())<4:
             messagebox.showerror("ERROR", "El formato de fecha es incorrecto \nEjemplo: 01-01-2019")
+            ventana.deiconify()
+        elif not data3.get().isdigit():
+            messagebox.showerror("ERROR", "El año es incorrecto")
             ventana.deiconify()
         else:
             miCursor.execute("INSERT INTO subsidios VALUES(NULL, '" + borra1.get() +
